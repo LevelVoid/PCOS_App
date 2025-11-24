@@ -1,24 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cwp-Pp-UyW">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Na0-Ql-zEi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2220.6106870229005" y="-1008.4507042253522"/>
+        </scene>
+        <!--Log View Controller-->
+        <scene sceneID="v4K-XA-N9G">
+            <objects>
+                <viewController id="XGA-BK-lg9" customClass="LogViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Oxo-Uh-dvO">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="vxk-Vo-8x5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BXt-aZ-qhA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xZc-XF-0he" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220.6106870229005" y="-210.56338028169014"/>
+        </scene>
+        <!--Diet View Controller-->
+        <scene sceneID="C1P-1k-qSA">
+            <objects>
+                <viewController id="vfV-jO-Hfj" customClass="DietViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YOi-rd-iCZ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="h4c-Tx-bgm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0wP-Nn-Kqs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eIf-9M-MwF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220.6106870229005" y="641.54929577464793"/>
+        </scene>
+        <!--Workout View Controller-->
+        <scene sceneID="BnM-8S-g2E">
+            <objects>
+                <viewController id="IwE-is-JB8" customClass="WorkoutViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="daj-et-IYQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="wir-0X-TlN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GZl-vZ-n7k"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bDC-PS-idz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220.6106870229005" y="1614.7887323943662"/>
+        </scene>
+        <!--Add Workout View Controller-->
+        <scene sceneID="xh1-wF-U8B">
+            <objects>
+                <viewController id="v3U-S5-bTH" customClass="AddWorkoutViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KkT-kd-DXu">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="NFn-Xv-xw3">
+                                <rect key="frame" x="0.0" y="303" width="393" height="36"/>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8Uf-yg-S13"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="NFn-Xv-xw3" firstAttribute="top" secondItem="8Uf-yg-S13" secondAttribute="top" constant="185" id="KVg-dl-xPK"/>
+                            <constraint firstItem="NFn-Xv-xw3" firstAttribute="leading" secondItem="8Uf-yg-S13" secondAttribute="leading" id="PUX-HJ-QGW"/>
+                            <constraint firstItem="8Uf-yg-S13" firstAttribute="bottom" secondItem="NFn-Xv-xw3" secondAttribute="bottom" constant="445" id="sAH-8Y-Tci"/>
+                            <constraint firstItem="NFn-Xv-xw3" firstAttribute="trailing" secondItem="8Uf-yg-S13" secondAttribute="trailing" id="u0v-28-mEv"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4iO-3b-tDu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3423.6641221374043" y="1542.9577464788733"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="MIm-b8-aEF">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="cwp-Pp-UyW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SIG-nF-zf9">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="jo7-uJ-Z2p" kind="relationship" relationship="viewControllers" id="g6B-ag-IYY"/>
+                        <segue destination="Gbw-IV-8LN" kind="relationship" relationship="viewControllers" id="hFg-jI-VTN"/>
+                        <segue destination="cQm-3w-5vW" kind="relationship" relationship="viewControllers" id="WMB-TF-pME"/>
+                        <segue destination="QIy-l6-93x" kind="relationship" relationship="viewControllers" id="MPH-X8-7DY"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ho-gB-Bvp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-211" y="138"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="A5Y-Bs-eIo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jo7-uJ-Z2p" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" selectedImage="house" catalog="system" id="Fe0-pQ-wAs"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ljh-lE-dmp">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="7a8-14-B6G"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GY4-66-T2N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293.8931297709923" y="-1008.4507042253522"/>
+        </scene>
+        <!--Log-->
+        <scene sceneID="Bha-11-Odf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gbw-IV-8LN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Log" selectedImage="calendar" catalog="system" id="8kq-Zq-ehn"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ych-fa-5Vb">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XGA-BK-lg9" kind="relationship" relationship="rootViewController" id="jbU-6A-3cM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jVx-BA-OiY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293.8931297709923" y="-210.56338028169014"/>
+        </scene>
+        <!--Diet-->
+        <scene sceneID="B0S-wo-Mx7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cQm-3w-5vW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Diet" selectedImage="fork.knife" catalog="system" id="n7M-fL-rli"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dia-hD-7lg">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vfV-jO-Hfj" kind="relationship" relationship="rootViewController" id="cXf-hy-qmg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pA1-ek-N2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293.8931297709923" y="641.54929577464793"/>
+        </scene>
+        <!--Workout-->
+        <scene sceneID="oJZ-hk-TGq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QIy-l6-93x" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Workout" selectedImage="figure.strengthtraining.traditional" catalog="system" id="pyE-Pb-h8L"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="omV-nc-rHv">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="IwE-is-JB8" kind="relationship" relationship="rootViewController" id="pec-li-bkD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wRV-C0-SMo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293.8931297709923" y="1614.7887323943662"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="figure.strengthtraining.traditional" catalog="system" width="128" height="119"/>
+        <image name="fork.knife" catalog="system" width="94" height="128"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
