@@ -24,22 +24,6 @@
             </objects>
             <point key="canvasLocation" x="2220.6106870229005" y="-1008.4507042253522"/>
         </scene>
-        <!--Log View Controller-->
-        <scene sceneID="v4K-XA-N9G">
-            <objects>
-                <viewController id="XGA-BK-lg9" customClass="LogViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Oxo-Uh-dvO">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vxk-Vo-8x5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="BXt-aZ-qhA"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xZc-XF-0he" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2220.6106870229005" y="-210.56338028169014"/>
-        </scene>
         <!--Diet View Controller-->
         <scene sceneID="C1P-1k-qSA">
             <objects>
@@ -104,12 +88,13 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="cwp-Pp-UyW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SIG-nF-zf9">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.99607843137254903" green="0.47843137254901957" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="jo7-uJ-Z2p" kind="relationship" relationship="viewControllers" id="g6B-ag-IYY"/>
-                        <segue destination="Gbw-IV-8LN" kind="relationship" relationship="viewControllers" id="hFg-jI-VTN"/>
                         <segue destination="cQm-3w-5vW" kind="relationship" relationship="viewControllers" id="WMB-TF-pME"/>
                         <segue destination="QIy-l6-93x" kind="relationship" relationship="viewControllers" id="MPH-X8-7DY"/>
                     </connections>
@@ -137,30 +122,11 @@
             </objects>
             <point key="canvasLocation" x="1293.8931297709923" y="-1008.4507042253522"/>
         </scene>
-        <!--Log-->
-        <scene sceneID="Bha-11-Odf">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gbw-IV-8LN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Log" selectedImage="calendar" catalog="system" id="8kq-Zq-ehn"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ych-fa-5Vb">
-                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="XGA-BK-lg9" kind="relationship" relationship="rootViewController" id="jbU-6A-3cM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jVx-BA-OiY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1293.8931297709923" y="-210.56338028169014"/>
-        </scene>
         <!--Diet-->
         <scene sceneID="B0S-wo-Mx7">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cQm-3w-5vW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Diet" selectedImage="fork.knife" catalog="system" id="n7M-fL-rli"/>
+                    <tabBarItem key="tabBarItem" title="Diet" selectedImage="square.and.arrow.up.fill" catalog="system" id="n7M-fL-rli"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dia-hD-7lg">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -196,10 +162,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="figure.strengthtraining.traditional" catalog="system" width="128" height="119"/>
-        <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
+        <image name="square.and.arrow.up.fill" catalog="system" width="117" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
