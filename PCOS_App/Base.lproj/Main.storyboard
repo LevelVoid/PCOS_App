@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +29,10 @@
         <scene sceneID="tPS-Hf-W3m">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1kW-gd-4Zi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" selectedImage="house" catalog="system" id="9TA-QH-JcY"/>
+                    <tabBarItem key="tabBarItem" title="Home" id="9TA-QH-JcY">
+                        <imageReference key="image" image="house" catalog="system" variableValue="1"/>
+                        <imageReference key="selectedImage" image="house" catalog="system" variableValue="1"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NOh-iG-oo6">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -43,70 +47,42 @@
             </objects>
             <point key="canvasLocation" x="-1046.5648854961833" y="-413.38028169014086"/>
         </scene>
-        <!--Diet View Controller-->
-        <scene sceneID="6R5-R5-ZNG">
+        <!--Diet-->
+        <scene sceneID="JrL-nf-lUT">
             <objects>
-                <viewController id="HTf-ds-LYa" customClass="DietViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableViewCell key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ziO-ht-Pgj">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ziO-ht-Pgj" id="a4p-Cc-NrD">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </tableViewCellContentView>
-                    </tableViewCell>
-                    <navigationItem key="navigationItem" id="J9x-Zk-HFW"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8lc-eg-bcM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="dietTab" storyboardName="Diet" id="BBf-6b-SeR" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="eYK-ZZ-cu6"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a1l-Qn-DTa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-121.37404580152672" y="307.74647887323943"/>
+            <point key="canvasLocation" x="-172" y="325"/>
         </scene>
-        <!--Diet Logs View Controller-->
-        <scene sceneID="no3-Mi-RYv">
+        <!--Profile View Controller-->
+        <scene sceneID="dpI-xI-aSe">
             <objects>
-                <viewController storyboardIdentifier="dietLogs" id="jRV-Rs-uCc" customClass="DietLogsViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Uhy-BA-uec">
+                <viewController id="3uR-vI-xUi" customClass="ProfileViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jKx-U4-1In">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4Yq-eD-YuE">
-                                <rect key="frame" x="16" y="501.33333333333326" width="361" height="282.66666666666674"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aar-o8-ZPQ">
+                                <rect key="frame" x="16" y="118" width="361" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" editingAccessoryType="detailButton" id="nar-tl-scS">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nar-tl-scS" id="0OF-3m-bus">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="hsa-B2-0oe">
-                                <rect key="frame" x="16" y="117.99999999999997" width="361" height="353.33333333333326"/>
-                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </datePicker>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="mrQ-8J-wuA"/>
+                        <viewLayoutGuide key="safeArea" id="6Nw-sv-dQv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hsa-B2-0oe" firstAttribute="leading" secondItem="mrQ-8J-wuA" secondAttribute="leading" constant="16" id="6CY-Bn-0L9"/>
-                            <constraint firstItem="mrQ-8J-wuA" firstAttribute="trailing" secondItem="4Yq-eD-YuE" secondAttribute="trailing" constant="16" id="Dme-eY-CNz"/>
-                            <constraint firstItem="4Yq-eD-YuE" firstAttribute="leading" secondItem="mrQ-8J-wuA" secondAttribute="leading" constant="16" id="HiY-MX-sop"/>
-                            <constraint firstItem="hsa-B2-0oe" firstAttribute="top" secondItem="mrQ-8J-wuA" secondAttribute="top" id="OlJ-71-JV2"/>
-                            <constraint firstItem="mrQ-8J-wuA" firstAttribute="trailing" secondItem="hsa-B2-0oe" secondAttribute="trailing" constant="16" id="Ti3-sN-Kpk"/>
-                            <constraint firstItem="mrQ-8J-wuA" firstAttribute="bottom" secondItem="4Yq-eD-YuE" secondAttribute="bottom" id="oOd-Vf-cCK"/>
-                            <constraint firstItem="4Yq-eD-YuE" firstAttribute="top" secondItem="hsa-B2-0oe" secondAttribute="bottom" constant="30" id="yxe-f0-VNT"/>
+                            <constraint firstItem="aar-o8-ZPQ" firstAttribute="top" secondItem="6Nw-sv-dQv" secondAttribute="top" id="EXg-s8-l5O"/>
+                            <constraint firstItem="aar-o8-ZPQ" firstAttribute="leading" secondItem="6Nw-sv-dQv" secondAttribute="leading" constant="16" id="dmy-gm-bWE"/>
+                            <constraint firstItem="6Nw-sv-dQv" firstAttribute="bottom" secondItem="aar-o8-ZPQ" secondAttribute="bottom" id="piz-3t-5Ni"/>
+                            <constraint firstItem="6Nw-sv-dQv" firstAttribute="trailing" secondItem="aar-o8-ZPQ" secondAttribute="trailing" constant="16" id="z8I-Bb-ckG"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="loggedMeal" destination="4Yq-eD-YuE" id="w1A-hQ-QqD"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fmH-jw-EVb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0aC-Es-Ur3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1693.8931297709923" y="305.63380281690144"/>
+            <point key="canvasLocation" x="2898" y="306"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="bpi-XP-0Bo">
@@ -133,7 +109,7 @@
         <scene sceneID="l2L-du-v3I">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e2n-DX-QH4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Diet" selectedImage="fork.knife" catalog="system" id="NQs-BU-12C"/>
+                    <tabBarItem key="tabBarItem" title="Diet" image="fork.knife" catalog="system" selectedImage="fork.knife" id="NQs-BU-12C"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mLm-WG-Q3N">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -141,7 +117,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="HTf-ds-LYa" kind="relationship" relationship="rootViewController" id="8h0-du-M10"/>
+                        <segue destination="BBf-6b-SeR" kind="relationship" relationship="rootViewController" id="m6W-Vm-bqm"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FhD-vZ-rf8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -168,7 +144,7 @@
         <scene sceneID="Zyx-ub-wkL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pWI-DQ-vtu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Workout" selectedImage="figure.strengthtraining.traditional" catalog="system" id="iXl-yk-YkA">
+                    <tabBarItem key="tabBarItem" title="Workout" image="figure.strengthtraining.traditional" catalog="system" selectedImage="figure.strengthtraining.traditional" id="iXl-yk-YkA">
                         <color key="badgeColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
