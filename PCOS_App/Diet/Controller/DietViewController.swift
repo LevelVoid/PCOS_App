@@ -14,6 +14,7 @@ class DietViewController: UIViewController {
 //    @IBOutlet weak var tableView: UITableView!
 //    
 //=======
+    var todaysFoods: [Food] = [] //sks: to filter food for today
     
     var dummyData = DataStore.sampleFoods
     @IBOutlet weak var tableView: UITableView!
@@ -44,6 +45,30 @@ class DietViewController: UIViewController {
         
         setupAddButton()
         AddMealButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
+        
+        //sks: filter data to show only today's foods
+        filterTodaysFoods()
+    }
+    
+    private func filterTodaysFoods() {  //sks: func to filter food
+        
+            let startOfToday = Calendar.current.startOfDay(for: Date())
+    
+            let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+            
+            todaysFoods = dummyData.filter { food in
+                // Check if food's timestamp is >= today's start AND < tomorrow's start
+                food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow
+            }
+            
+            // Sort by timestamp (newest first)
+            todaysFoods.sort { $0.timeStamp > $1.timeStamp }
+            
+            // Refresh the table view to show updated data
+            tableView.reloadData()
+            
+            // Debug: Print how many foods found for today
+            print(" Found \(todaysFoods.count) foods for today")
     }
     
     private func setupAddButton() {
@@ -70,14 +95,13 @@ class DietViewController: UIViewController {
 extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return dummyData.count
+        return todaysFoods.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: LogsTableViewCell.identifier, for: indexPath) as! LogsTableViewCell
-        let dataIndex = indexPath.row
-        let item = dummyData[dataIndex]
+        let item = todaysFoods[indexPath.row] //sks: made changes here
         cell.configure(with: item)
 //=======
 //
@@ -138,3 +162,4 @@ extension DietViewController {
 //>>>>>>> f5227e3 (Sync folder structure with remote)
     }
 }
+

@@ -14,7 +14,7 @@ struct DataStore {
             Food(
                 id: UUID(),
                 name: "Greek Yogurt with Berries",
-                image: nil,
+                image: "GreekYogurtWithBerries",
                 timeStamp: Calendar.current.date(byAdding: .hour, value: -2, to: Date()) ?? Date(),
                 quantity: 200,
                 proteinContent: 17,
@@ -27,7 +27,7 @@ struct DataStore {
             Food(
                 id: UUID(),
                 name: "Avocado Toast",
-                image: nil,
+                image: "AvacadoToast",
                 timeStamp: Calendar.current.date(byAdding: .hour, value: -5, to: Date()) ?? Date(),
                 quantity: 150,
                 proteinContent: 6,
@@ -40,7 +40,7 @@ struct DataStore {
             Food(
                 id: UUID(),
                 name: "Almonds",
-                image: nil,
+                image: "Almonds",
                 timeStamp: Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date(),
                 quantity: 30,
                 proteinContent: 6,

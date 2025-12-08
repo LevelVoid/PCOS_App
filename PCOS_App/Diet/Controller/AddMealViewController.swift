@@ -39,7 +39,7 @@ class AddMealViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.setTitleColor(UIColor(hex: "fe7a96"), for: .normal)
+        button.setTitleColor(UIColor(hexString: "fe7a96"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -274,18 +274,43 @@ class AddMealViewController: UIViewController {
             // Implement AI scanning
         case 3:
             print("Describe Meal tapped")
-            let describeVC = DescribeFoodViewController()
-            // If this AddMealViewController is presented modally, we can push if embedded in a navigation controller
-            if let nav = self.navigationController {
-                nav.pushViewController(describeVC, animated: true)
-            } else {
-                let nav = UINavigationController(rootViewController: describeVC)
-                nav.modalPresentationStyle = .automatic
-                self.present(nav, animated: true)
-            }
+            describeMealTapped()
         default:
             break
         }
+    }
+    
+    // MARK: - Describe Meal Navigation
+    private func describeMealTapped() {
+        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "DescribeFoodViewController") as? DescribeFoodViewController else {
+            print("⚠️ Error: Could not instantiate DescribeFoodViewController from storyboard")
+            assertionFailure("Could not instantiate DescribeFoodViewController")
+            return
+        }
+        
+        // Pass a callback to receive the described meal
+        vc.onFoodAdded = { [weak self] description in
+            // Handle the meal description here (e.g., update UI or model)
+            print("✅ Received meal description: \(description)")
+            
+            // TODO: Add logic to save the meal or update your data model
+            // For example:
+            // self?.saveMeal(description: description)
+            // self?.dismiss(animated: true) // Dismiss AddMealViewController after saving
+        }
+        
+        // Configure presentation style for a nice modal sheet
+        vc.modalPresentationStyle = .pageSheet
+        
+        // Optional: Configure sheet presentation if you want to customize it
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+            sheet.selectedDetentIdentifier = .medium
+        }
+        
+        present(vc, animated: true)
     }
 }
 
@@ -306,4 +331,3 @@ extension AddMealViewController {
         viewController.present(addMealVC, animated: true)
     }
 }
-
