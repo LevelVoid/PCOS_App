@@ -2,6 +2,12 @@ import UIKit
 
 class AddMealViewController: UIViewController {
     
+    @IBOutlet weak var foodTableView: UITableView!
+    
+    private var foodItems: [FoodItem] = []
+    private var filteredFoodItems: [FoodItem] = []
+    private var selectedQuantities: [String: Int] = [:]
+    
     // handlebar UI
     private let handleBar: UIView = {
         let view = UIView()
@@ -135,6 +141,9 @@ class AddMealViewController: UIViewController {
         view.backgroundColor = .white
         setupUI()
         setupActions()
+        setupTableView()
+        setupSearchTextField()
+        loadFoodItems()
     }
     
     // MARK: - Setup
@@ -292,9 +301,9 @@ class AddMealViewController: UIViewController {
         }
         
         // Pass a callback to receive the described meal
-        vc.onFoodAdded = { [weak self] description in
+        vc.onFoodAdded = { description in
             // Handle the meal description here (e.g., update UI or model)
-            print("✅ Received meal description: \(description)")
+            print("Received meal description: \(description)")
             
             // TODO: Add logic to save the meal or update your data model
             // For example:
@@ -307,29 +316,201 @@ class AddMealViewController: UIViewController {
         
         // Optional: Configure sheet presentation if you want to customize it
         if let sheet = vc.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-            sheet.prefersGrabberVisible = true
-            sheet.selectedDetentIdentifier = .medium
+            if #available(iOS 16.0, *) {
+                sheet.detents = [
+                    .medium(),
+                    .large()
+                ]
+                sheet.prefersGrabberVisible = true
+                sheet.selectedDetentIdentifier = .medium
+            } else {
+                // Fallback: leave default detents
+            }
         }
         
         present(vc, animated: true)
+    }
+    
+    private func setupTableView() {
+        guard let tableView = foodTableView else {
+            assertionFailure("foodTableView outlet is not connected. Ensure AddMealViewController is loaded from storyboard and the outlet is wired.")
+            return
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .systemGray6
+        tableView.rowHeight = 60
+        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "FoodItemCell")
+        
+        // Remove leading padding/margins
+        if #available(iOS 11.0, *) {
+            tableView.insetsContentViewsToSafeArea = false
+        }
+        tableView.separatorInset = .zero
+        if #available(iOS 13.0, *) {
+            tableView.directionalLayoutMargins = .zero
+        }
+        tableView.layoutMargins = .zero
+        #if swift(>=5.3)
+            tableView.cellLayoutMarginsFollowReadableWidth = false
+        #endif
+    }
+    
+    private func setupSearchTextField() {
+        searchTextField.delegate = self
+        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+    }
+    
+    // MARK: - Data Loading
+    private func loadFoodItems() {
+        foodItems = FoodListdataStore.shared.loadFoodItems()
+        filteredFoodItems = foodItems
+        foodTableView.reloadData()
+    }
+    
+    // MARK: - Search
+    @objc private func searchTextChanged() {
+        let query = searchTextField.text ?? ""
+        
+        if query.isEmpty {
+            filteredFoodItems = foodItems
+        } else {
+            filteredFoodItems = foodItems.filter {
+                $0.name.lowercased().contains(query.lowercased())
+            }
+        }
+        
+        foodTableView.reloadData()
+    }
+    
+    @objc private func segmentChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0: // Recent
+            // TODO: Load recent items
+            loadFoodItems()
+        case 1: // Favorites
+            // TODO: Load favorite items
+            loadFoodItems()
+        default:
+            break
+        }
     }
 }
 
 // MARK: - Presentation Extension
 extension AddMealViewController {
     static func present(from viewController: UIViewController) {
-        let addMealVC = AddMealViewController()
-        
+        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+        let addMealVC: AddMealViewController
+        if let vc = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController {
+            addMealVC = vc
+        } else {
+            print("⚠️ Warning: Could not instantiate AddMealViewController from storyboard. Falling back to direct init. This may cause IBOutlets to be nil.")
+            addMealVC = AddMealViewController()
+        }
+
         if let sheet = addMealVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-            sheet.prefersGrabberVisible = true
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.selectedDetentIdentifier = .medium
-            sheet.largestUndimmedDetentIdentifier = nil
+            if #available(iOS 16.0, *) {
+                sheet.detents = [
+                    .medium(),
+                    .large()
+                ]
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.selectedDetentIdentifier = .medium
+                sheet.largestUndimmedDetentIdentifier = nil
+            } else {
+                // Fallback: leave default detents
+            }
         }
         addMealVC.isModalInPresentation = false
-        
+
         viewController.present(addMealVC, animated: true)
+    }
+}
+
+extension AddMealViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let selectedFood = filteredFoodItems[indexPath.row]
+        openFoodDetailScreen(for: selectedFood)
+        
+        // Haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+    }
+    
+    private func openFoodDetailScreen(for foodItem: FoodItem) {
+        // TODO: Create and push to FoodDetailViewController
+        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+        
+        guard let detailVC = storyboard.instantiateViewController(withIdentifier: "FoodDetailViewController") as? FoodDetailViewController else {
+            print("⚠️ Error: Could not instantiate FoodDetailViewController")
+            return
+        }
+        
+        // Pass the food item
+        detailVC.foodItem = foodItem
+        detailVC.currentQuantity = selectedQuantities[foodItem.id] ?? 0
+        
+        // Callback to receive the selected quantity
+        detailVC.onQuantitySelected = { [weak self] quantity in
+            self?.selectedQuantities[foodItem.id] = quantity
+            print("📝 Selected \(quantity) serving(s) of \(foodItem.name)")
+        }
+        
+        // Push to detail screen
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(detailVC, animated: true)
+        } else {
+            // If there's no navigation controller, present modally
+            detailVC.modalPresentationStyle = .pageSheet
+            if let sheet = detailVC.sheetPresentationController {
+                if #available(iOS 16.0, *) {
+                    sheet.detents = [
+                        .medium(),
+                        .large()
+                    ]
+                    sheet.prefersGrabberVisible = true
+                } else {
+                    // Fallback: leave default detents
+                }
+            }
+            present(detailVC, animated: true)
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension AddMealViewController: UITableViewDataSource {
+    @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredFoodItems.count
+    }
+    
+    @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let reuseId = "FoodItemCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) ?? UITableViewCell(style: .subtitle, reuseIdentifier: reuseId)
+        
+        cell.separatorInset = .zero
+        cell.layoutMargins = .zero
+        cell.preservesSuperviewLayoutMargins = false
+        cell.contentView.preservesSuperviewLayoutMargins = false
+        
+        let foodItem = filteredFoodItems[indexPath.row]
+        cell.textLabel?.text = foodItem.name
+        cell.detailTextLabel?.text = "\(foodItem.calories) kcal • \(foodItem.servingSize)"
+        cell.selectionStyle = .none
+        return cell
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension AddMealViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

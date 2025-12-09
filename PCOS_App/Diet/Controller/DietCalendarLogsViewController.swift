@@ -9,7 +9,7 @@ import UIKit
 
 class DietCalendarLogsViewController: UIViewController {
     
-    var dummyData = DataStore.sampleFoods
+    var dummyData = FoodLogDataSource.sampleFoods
     var filteredData: [Food] = []
     var loggedDateKeys: Set<String> = []
     

@@ -31,3 +31,13 @@ extension UIColor {
         )
     }
 }
+
+
+//let rgbaPink = UIColor(rgbaHex: "fe7a96CC") // CC = ~80% alpha
+
+extension Double {
+    func rounded(toPlaces places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}

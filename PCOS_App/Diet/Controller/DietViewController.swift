@@ -10,7 +10,8 @@ import UIKit
 class DietViewController: UIViewController {
 
     var todaysFoods: [Food] = [] //sks: to filter food for today
-    var dummyData = DataStore.sampleFoods
+    
+    var dummyData = FoodLogDataSource.sampleFoods
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var AddMealButton: UIButton!
     
