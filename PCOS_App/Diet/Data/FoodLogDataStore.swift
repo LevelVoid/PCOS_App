@@ -8,6 +8,8 @@
 import Foundation
 
 struct FoodLogDataSource {
+    
+    
     static let sampleFoods: [Food] = [
         // TODAY - Morning
         Food(

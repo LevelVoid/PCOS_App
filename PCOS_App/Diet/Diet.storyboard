@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCy-Bm-uvt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3167" y="1001"/>
+            <point key="canvasLocation" x="3265" y="1071"/>
         </scene>
         <!--Diet Calendar Logs View Controller-->
         <scene sceneID="LZC-G4-OWg">
@@ -191,10 +191,10 @@
             </objects>
             <point key="canvasLocation" x="1882" y="306"/>
         </scene>
-        <!--View Controller-->
+        <!--Food Detail View Controller-->
         <scene sceneID="4hB-9g-I2P">
             <objects>
-                <viewController id="3HQ-vJ-b4n" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FoodDetailViewController" id="3HQ-vJ-b4n" customClass="FoodDetailViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nGB-k2-H6g">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
