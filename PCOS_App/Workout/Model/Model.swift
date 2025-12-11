@@ -165,7 +165,8 @@ struct RoutineExercise: Codable, Identifiable {
                            reps: reps,
                            weightKg: weightKg,
                            restTimerSeconds: restTimerSeconds,
-                           durationSeconds: nil
+                           durationSeconds: nil,
+                           isCompleted: false
                        )
                    }
                    
@@ -177,7 +178,10 @@ struct RoutineExercise: Codable, Identifiable {
                    )
                }
            }
+    
 }
+
+
 struct ExerciseSet: Codable, Identifiable {
     var id = UUID()
     var setNumber: Int
@@ -199,7 +203,7 @@ struct Routine: Identifiable, Codable {
     var exercises: [RoutineExercise]
     var createdAt: Date = Date()
     var thumbnailImageName: String?//new added property 
-    
+    var routineDescription: String?
     var totalExercises: Int { exercises.count }
     
     var totalSets: Int {
@@ -246,6 +250,7 @@ struct ActiveWorkout {
     mutating func finish() {
         endTime = Date()
         durationSeconds = Int(endTime!.timeIntervalSince(startTime))
+        
     }
 }
 struct CompletedWorkout {

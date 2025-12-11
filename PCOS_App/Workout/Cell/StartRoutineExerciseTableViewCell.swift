@@ -34,19 +34,23 @@ class StartRoutineExerciseTableViewCell: UITableViewCell {
 
 
     func configure(with exercise: WorkoutExercise) {
-
+        setCountLabel.text = "\(exercise.sets.count)"
+            repsLabel.text = "\(exercise.sets.first?.reps ?? 0)"
+            weightLabel.text = "\(exercise.sets.first?.weightKg ?? 0)"
+        doneButton.isSelected = exercise.sets.allSatisfy { $0.isCompleted }
         
         
         
         exerciseNameLabel.text = exercise.exercise.name
         muscleLabel.text = exercise.exercise.muscleGroup.displayName
-
+        exerciseImageView.image = UIImage(named: exercise.exercise.image ?? "")
+        
         let rest = exercise.sets.first?.restTimerSeconds ?? 0
         restTimerLabel.text = "Rest Timer : \(rest) secs"
 
-        setCountLabel.text = "\(exercise.sets.first?.setNumber ?? 1)"
-        weightLabel.text = "\(exercise.sets.first?.weightKg ?? 0)"
-        repsLabel.text = "\(exercise.sets.first?.reps ?? 0)"
+        //setCountLabel.text = "\(exercise.sets.first?.setNumber ?? 1)"
+        //weightLabel.text = "\(exercise.sets.first?.weightKg ?? 0)"
+        //repsLabel.text = "\(exercise.sets.first?.reps ?? 0)"
 
         // Correct handling of completion state
         let isDone = exercise.sets.first?.isCompleted ?? false
@@ -64,6 +68,7 @@ class StartRoutineExerciseTableViewCell: UITableViewCell {
 
             // send the NEW state up
             onDoneTapped?(sender.isSelected)   // 0 because you're only showing 1 set per exercise for now
+        
     }
 
 }

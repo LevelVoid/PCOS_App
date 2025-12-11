@@ -30,7 +30,8 @@ class RoutineDataStore {
                     durationSeconds: 120
                 )
             ],
-            thumbnailImageName: "plank"
+            thumbnailImageName: "plank",
+            routineDescription: "A gentle warm-up to prepare your muscles and joints."
         ),
 
         // 2. HIIT
@@ -51,7 +52,9 @@ class RoutineDataStore {
                     durationSeconds: 300
                 )
             ],
-            thumbnailImageName: "plank"
+            thumbnailImageName: "plank",
+            routineDescription: "A high-intensity routine designed to burn calories quickly."
+        
         ),
 
         // 3. YOGA / MOBILITY
@@ -72,7 +75,8 @@ class RoutineDataStore {
                     durationSeconds: 240
                 )
             ],
-            thumbnailImageName: "warm-up"
+            thumbnailImageName: "warm-up",
+            routineDescription: "A calming yoga flow that improves mobility and breathing."
         ),
 
         // 4. LEG DAY
@@ -98,7 +102,8 @@ class RoutineDataStore {
                     reps: 12
                 )
             ],
-            thumbnailImageName: "warm-up"
+            thumbnailImageName: "warm-up",
+            routineDescription: "A strength-focused routine to build lower body power."
         ),
 
         // 5. UPPER BODY
@@ -125,7 +130,8 @@ class RoutineDataStore {
                     weightKg: 10
                 )
             ],
-            thumbnailImageName: "warm-up"
+            thumbnailImageName: "warm-up",
+            routineDescription: "Targets chest, back, shoulders, and arms for upper body strength."
         ),
 
         // 6. STRETCHING
@@ -146,7 +152,8 @@ class RoutineDataStore {
                     durationSeconds: 180
                 )
             ],
-            thumbnailImageName: "plank"
+            thumbnailImageName: "plank",
+            routineDescription: "A flexibility routine that improves mobility and reduces tension."
         )
     ]
 }

@@ -14,12 +14,22 @@ enum ExploreRoutineItem {
 
 class WorkoutViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
+    
     private var exploreItems: [ExploreRoutineItem] = []
-        
+    private var selectedPredefinedRoutine: Routine?
+
     
     @IBOutlet weak var durationGoalCard: UIView!
     @IBOutlet weak var stepsGoalCard: UIView!
     @IBOutlet weak var caloriesGoalCard: UIView!
+    
+    @IBOutlet weak var caloriesProgressView: CircularProgressView!
+    @IBOutlet weak var durationProgressView: CircularProgressView!
+    @IBOutlet weak var stepsProgressView: CircularProgressView!
+    
+    @IBOutlet weak var flameIcon: UIImageView!
+    @IBOutlet weak var durationIcon: UIImageView!
+    @IBOutlet weak var stepsIcon: UIImageView!
     
     @IBOutlet weak var myRoutinesSuperView: UIView!
     @IBOutlet weak var emptyMyRoutineOutlet: UIView!
@@ -48,7 +58,7 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
                 layout.minimumLineSpacing = 12
                 layout.sectionInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
             }
-    
+        setupDailyGoalRings()
             //setting up the explore
             setupExploreData()
     }
@@ -58,24 +68,7 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
             .createCustom
         ] + RoutineDataStore.shared.predefinedRoutines.map {.predefined($0)}
     }
-//Error code :
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return exploreItems.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "explore_routines_cell", for: indexPath) as! ExploreRoutinesCollectionViewCell
-//        
-//        let item=exploreItems[indexPath.item]
-//        switch item {
-//        case .createCustom:
-//            cell.configureCreateRoutine()
-//        case .predefined(let routine):
-//            cell.configureRoutine(routine)
-//        }
-//        return cell
-//    }
-    
+
  //   Distinguish between collection views
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == exploreRoutinesCollectionOutlet {
@@ -143,6 +136,35 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
             
         }
     }
+    func setupDailyGoalRings() {
+        caloriesGoalCard.bringSubviewToFront(flameIcon)
+        stepsGoalCard.bringSubviewToFront(stepsIcon)
+        durationGoalCard.bringSubviewToFront(durationIcon)
+        // CALORIES
+        let caloriesBurnt = 520.0
+        let caloriesGoal = 600.0
+        caloriesProgressView.progress = caloriesBurnt / caloriesGoal
+        caloriesProgressView.progressColor = UIColor.systemOrange
+        caloriesProgressView.trackColor = UIColor.systemGray5
+        caloriesProgressView.lineWidth = 6
+
+        // STEPS
+        let steps = 5422.0
+        let stepsGoal = 10000.0
+        stepsProgressView.progress = steps / stepsGoal
+        stepsProgressView.progressColor = UIColor.systemGreen
+        stepsProgressView.trackColor = UIColor.systemGray5
+        stepsProgressView.lineWidth = 6
+
+        // DURATION
+        let durationMinutes = 80.0   // 1h 20min
+        let durationGoal = 120.0     // 2h
+        durationProgressView.progress = durationMinutes / durationGoal
+        durationProgressView.progressColor = UIColor.systemPurple
+        durationProgressView.trackColor = UIColor.systemGray5
+        durationProgressView.lineWidth = 6
+    }
+
     
     
     private func handleCreateCustomRoutine() {
@@ -153,43 +175,16 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
 
     //as collection view cells not visible->performing segues via code 
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView == exploreRoutinesCollectionOutlet {
-//            let item = exploreItems[indexPath.item]
-//            switch item {
-//            case .createCustom:
-//                performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-//            case .predefined(_):
-//                // optional preview
-//                break
-//            }
-//        } else {
-//            // Tapped one of "My Routines" cells -> start that routine
-//            let routine = WorkoutSessionManager.shared.savedRoutines[indexPath.item]
-//            print("🟢 Selected routine to start: \(routine.name)")
-//
-//            // Convert RoutineExercise -> WorkoutExercise for live tracking
-//            let workoutExercises = routine.exercises.map { $0.generateWorkoutExercise() }
-//
-//            // Build ActiveWorkout and set in manager
-//            let active = ActiveWorkout(
-//                routine: routine,
-//                exercises: workoutExercises
-//            )
-//            WorkoutSessionManager.shared.activeWorkout = active
-//
-//            // Perform segue to StartRoutineViewController
-//            performSegue(withIdentifier: "showStartRoutine", sender: nil)
-//        }
-//    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == exploreRoutinesCollectionOutlet {
             let item = exploreItems[indexPath.item]
             switch item {
             case .createCustom:
                 performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-            case .predefined(_):
-                break
+            case .predefined(let routine):
+                self.selectedPredefinedRoutine = routine
+                    performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
             }
         }
 
@@ -252,7 +247,14 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
         myRoutinesCollectionOutlet.reloadData()
     }
 
-   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PredefinedRoutines" {
+            if let vc = segue.destination as? PredefinedRoutinesViewController {
+                vc.routine = selectedPredefinedRoutine
+            }
+        }
+    }
+
     
     
     
