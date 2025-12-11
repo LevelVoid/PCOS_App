@@ -13,6 +13,7 @@ struct Food: Codable, Identifiable {
     var image: String?
     var timeStamp: Date
     var quantity: Double
+    var weight: Double? //Add more values for testing in datasource
     
     // Base macros (if not ingredient-based)
     var proteinContent: Double

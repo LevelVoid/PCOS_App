@@ -11,6 +11,7 @@ struct Ingredient: Codable, Identifiable {
     let id: UUID
     var name: String
     var quantity: Double
+    var weight: Double? //add this values in datasource for testing
     
     // Macro breakdown for THIS ingredient
     var protein: Double

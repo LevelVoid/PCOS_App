@@ -22,6 +22,7 @@ struct FoodLogDataSource {
             image: "GreekYogurtWithBerries",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -2, to: Date()) ?? Date(),
             quantity: 200,
+            weight: 6.0,
             proteinContent: 17,
             carbsContent: 15,
             fatsContent: 4,
@@ -68,11 +69,13 @@ struct FoodLogDataSource {
             image: "AvacadoToast",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -5, to: Date()) ?? Date(),
             quantity: 150,
+            weight: 15.0,
             proteinContent: 6,
             carbsContent: 25,
             fatsContent: 14,
             fibreContent: 7,
             customCalories: 220.39,
+
             tags: [.healthyFats, .lowGlycemic, .antiInflammatory, .wholeFood],
             ingredients: [
                             Ingredient(id: UUID(), name: "Avocado", quantity: 70,
@@ -90,6 +93,7 @@ struct FoodLogDataSource {
             image: "Almonds",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date(),
             quantity: 30,
+            weight: 3.0,
             proteinContent: 6,
             carbsContent: 6,
             fatsContent: 14,
@@ -104,6 +108,7 @@ struct FoodLogDataSource {
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
             quantity: 250,
+            
             proteinContent: 12,
             carbsContent: 45,
             fatsContent: 8,
