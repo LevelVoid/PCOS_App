@@ -176,8 +176,8 @@ class CreateRoutineViewController: UIViewController {
             
             // 5. Show success message
             let alert = UIAlertController(
-                title: "✅ Routine Saved!",
-                message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.",
+                title: "Routine Saved!",
+                message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.\nEven planning your routine is an act of self-care 🌸",
                 preferredStyle: .alert
             )
             alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
@@ -191,76 +191,32 @@ class CreateRoutineViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "showAddExercise" {
-//                if let navController = segue.destination as? UINavigationController,
-//                   let addExerciseVC = navController.topViewController as? AddExerciseViewController {
-//                    
-//                    // Pass callback to receive selected exercises
-//                    addExerciseVC.onExercisesSelected = { [weak self] selectedExercises in
-//                        self?.handleSelectedExercises(selectedExercises)
-//                    }
-//                }
                 if let addVC = segue.destination as? AddExerciseViewController {
                             addVC.onExercisesSelected = { [weak self] selectedExercises in
                                 self?.handleSelectedExercises(selectedExercises)
                             }
                         }
             }
-        }
-    
-  /*  private func handleSelectedExercises(_ exercises: [Exercise]) {
-        // Convert Exercise to RoutineExercise with default sets
-               
-               //OLD CODE WITH PLANNED SETS STRUCT(now deleted)
-       //            let newRoutineExercises = exercises.map { exercise in
-       //                RoutineExercise(
-       //                    exercise: exercise,
-       //                    sets: [
-       //                        PlannedSet(setNumber: 1, reps: 10, weightKg: 0, restTimerSeconds: 60)
-       //                    ]
-       //                )
-       //            }
-               
-//               let newRoutineExercises = exercises.map { exercise in
-//                   RoutineExercise(exercise: exercise)
-//               }
-//                   
-//                   // Add to existing exercises
-//                   routineExercises.append(contentsOf: newRoutineExercises)
-//                   
-//                   // Update UI
-//                   updateUI()
-        
-        let newRoutineExercises = exercises.map { exercise in
-                    // Set appropriate defaults based on exercise type
-                    if exercise.isCardio {
-                        return RoutineExercise(
-                            exercise: exercise,
-                            numberOfSets: 1,  // Cardio doesn't use sets
-                            reps: 0,          // Cardio doesn't use reps
-                            weightKg: 0,      // Cardio doesn't use weight
-                            restTimerSeconds: nil,
-                            durationSeconds: 600,  // Default 10 minutes
-                            notes: nil
-                        )
-                    } else {
-                        return RoutineExercise(
-                            exercise: exercise,
-                            numberOfSets: 3,
-                            reps: 10,
-                            weightKg: 0,
-                            restTimerSeconds: 60,  // Default 60 seconds rest
-                            durationSeconds: nil,
-                            notes: nil
-                        )
-                    }
+        if segue.identifier == "InfoModal2" {
+            // If you embedded InfoModal inside a UINavigationController, handle that:
+            if let nav = segue.destination as? UINavigationController,
+               let infoVC = nav.topViewController as? InfoModalViewController {
+                if let exercise = sender as? Exercise {
+                    infoVC.exercise = exercise
                 }
-                
-                routineExercises.append(contentsOf: newRoutineExercises)
-                updateUI()
-               }
-    func exerciseDidUpdate() {
-            updateStats()
-        }*/
+            } else if let infoVC = segue.destination as? InfoModalViewController {
+                if let exercise = sender as? Exercise {
+                    infoVC.exercise = exercise
+                }
+            } else {
+                // Optional: Debugging fallback
+                print("Warning: destination VC is not InfoModalViewController")
+            }
+        }
+        
+}
+    
+  
     
     private func handleSelectedExercises(_ exercises: [Exercise]) {
         print("📥 Received \(exercises.count) exercises")
@@ -318,7 +274,11 @@ extension CreateRoutineViewController: UITableViewDataSource {
         }
         
         let routineExercise = routineExercises[indexPath.row]
-        
+
+        cell.onInfoTapped = { [weak self] in
+            guard let self = self else { return }
+            self.performSegue(withIdentifier: "InfoModal2", sender: routineExercise.exercise)
+        }
         // IMPORTANT: Pass a reference so cell can notify when values change
         cell.configure(with: routineExercise)
         
@@ -372,6 +332,7 @@ extension CreateRoutineViewController: UITableViewDelegate {
             updateUI()
         }
     }
+    
     
 }
 

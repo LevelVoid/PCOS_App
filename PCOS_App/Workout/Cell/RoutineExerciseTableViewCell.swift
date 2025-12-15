@@ -7,6 +7,9 @@
 
 import UIKit
 class RoutineExerciseTableViewCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var exerciseNameLabel: UILabel!
     @IBOutlet weak var muscleTypeLabel: UILabel!
     @IBOutlet weak var exerciseImageView: UIImageView!
@@ -17,7 +20,6 @@ class RoutineExerciseTableViewCell: UITableViewCell {
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var durationTextField: UITextField! // for cardio only
     
-    // StackViews (recommended)
     @IBOutlet weak var strengthStackView: UIStackView!
     @IBOutlet weak var cardioStackView: UIStackView!
     
@@ -26,10 +28,22 @@ class RoutineExerciseTableViewCell: UITableViewCell {
     
     // Keep reference to the model so we can update it
     private var routineExercise: RoutineExercise?
-    
+    var onInfoTapped: (() -> Void)?
+
+    @IBAction func infoButtonTapped(_ sender: UIButton) {
+        onInfoTapped?()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        containerView.layer.cornerRadius = 16
+        
+        // Shadow
+        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowOpacity = 0.08   // very soft
+        containerView.layer.shadowRadius = 10
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
         exerciseImageView.contentMode = .scaleAspectFill
         exerciseImageView.clipsToBounds = true
         exerciseImageView.layer.cornerRadius = 8
@@ -158,4 +172,6 @@ class RoutineExerciseTableViewCell: UITableViewCell {
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)
         }
+        
+        
     }

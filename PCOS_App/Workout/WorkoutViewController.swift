@@ -102,14 +102,14 @@ class WorkoutViewController: UIViewController {
                         // Explore Routines - 2 column grid
                         let itemSize = NSCollectionLayoutSize(
                             widthDimension: .fractionalWidth(0.5),
-                            heightDimension: .absolute(130)
+                            heightDimension: .absolute(170)
                         )
                         let item = NSCollectionLayoutItem(layoutSize: itemSize)
                         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 12, trailing: 6)
                         
                         let groupSize = NSCollectionLayoutSize(
                             widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .absolute(150)
+                            heightDimension: .absolute(170)
                         )
                         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                         

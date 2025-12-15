@@ -26,7 +26,7 @@ class ExerciseDataStore {
             name: "Plank",
             muscleGroup: .core,
             equipment: .none,
-            image: "plank",
+            image: "Plank",
             instructions: "Maintain a straight spine while holding the plank position.",
             gifUrl: "plank.gif",
             level: "Beginner",

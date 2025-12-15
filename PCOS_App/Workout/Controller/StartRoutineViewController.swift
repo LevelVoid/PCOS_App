@@ -33,9 +33,7 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
                 isCompleted: isCompleted
             )
         }
-//        cell.onInfoTapped = { [weak self] in
-//            self?.performSegue(withIdentifier: "InfoModal", sender: nil)
-//        }
+
         let exercise = activeWorkout.exercises[indexPath.row].exercise
         cell.onInfoTapped = { [weak self] in
             guard let self = self else { return }
@@ -45,11 +43,6 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
             return cell
         }
     func toggleSet(exerciseIndex: Int, isCompleted: Bool) {
-
-//        // Your workout always has 1 set per exercise (based on your model)
-//        var set = activeWorkout.exercises[exerciseIndex].sets[0]
-//        set.isCompleted = isCompleted
-//        activeWorkout.exercises[exerciseIndex].sets[0] = set
         // Mark ALL sets as complete for this exercise
             for i in 0..<activeWorkout.exercises[exerciseIndex].sets.count {
                 activeWorkout.exercises[exerciseIndex].sets[i].isCompleted = isCompleted
@@ -66,7 +59,6 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
         )
     }
 
-    
 
     var activeWorkout: ActiveWorkout!
     var globalTimer: Timer?
@@ -101,47 +93,7 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 1. Get the first saved routine (or pass index from previous screen)
-            // TEMPORARY: For testing, we'll use the first routine
-//            guard let routine = WorkoutSessionManager.shared.savedRoutines.first else {
-//                // Show error if no routine exists
-//                let alert = UIAlertController(
-//                    title: "No Routine Found",
-//                    message: "Please create a routine first.",
-//                    preferredStyle: .alert
-//                )
-//                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-//                    self.navigationController?.popViewController(animated: true)
-//                })
-//                present(alert, animated: true)
-//                return
-//            }
-        
-            
-//            print("🏋️ Starting routine: \(routine.name)")
-//            print("📋 Exercises count: \(routine.exercises.count)")
-//
-//            // 2. Convert RoutineExercise → WorkoutExercise (live set-tracking)
-//            let workoutExercises = routine.exercises.map { $0.generateWorkoutExercise() }
-//            
-//            print("✅ Generated \(workoutExercises.count) workout exercises")
-//
-//            // 3. Create the active workout
-//            activeWorkout = ActiveWorkout(
-//                routine: routine,
-//                exercises: workoutExercises
-//            )
-//
-//            WorkoutSessionManager.shared.activeWorkout = activeWorkout
-//
-//            routineNameLabel.text = routine.name
-//
-//            startRoutineTableView.delegate = self
-//            startRoutineTableView.dataSource = self
-//            setupTable()
-//            startMainTimer()
-//            updateStats()
-//            updateProgress()
+ 
         progressWidthConstraint.constant = 0
         
         // 1️⃣ Get the active workout that was set earlier
@@ -219,48 +171,7 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
 
-//    func markSetCompleted(exerciseIndex: Int, setIndex: Int) {
-//        activeWorkout.exercises[exerciseIndex].sets[setIndex].isCompleted = true
-//
-//        updateProgress()
-//        updateStats()
-//
-//        // Optional: reload that specific row for visual update
-//        startRoutineTableView.reloadRows(at: [IndexPath(row: exerciseIndex, section: 0)], with: .automatic)
-//    }
 
-//    @IBAction func finishRoutineTapped(_ sender: UIBarButtonItem) {
-//
-//        let elapsed = Int(Date().timeIntervalSince(activeWorkout.startTime))
-//
-//        if elapsed < 300 {
-//            let alert = UIAlertController(
-//                title: "Workout Too Short",
-//                message: "Workout must be at least 5 minutes.",
-//                preferredStyle: .alert
-//            )
-//            alert.addAction(UIAlertAction(title: "OK", style: .default))
-//            present(alert, animated: true)
-//            return
-//        }
-//
-//        globalTimer?.invalidate()
-//        activeWorkout.finish()
-//
-//        let completedWorkout = CompletedWorkout(
-//            routineName: activeWorkout.routine.name,
-//            date: Date(),
-//            durationSeconds: activeWorkout.durationSeconds,
-//            exercises: activeWorkout.exercises
-//        )
-//
-//        WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
-//        
-//        print("💾 Workout saved: \(completedWorkout.routineName) - Duration: \(completedWorkout.durationSeconds)s")
-//
-//           
-//        navigationController?.popViewController(animated: true)
-//    }
     @IBAction func finishRoutineTapped(_ sender: UIBarButtonItem) {
 
         let alert = UIAlertController(
@@ -282,33 +193,11 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
         present(alert, animated: true)
     }
 
-//    func handleSaveWorkout() {
-//        globalTimer?.invalidate()
-//        activeWorkout.finish()
-//
-//        let completedWorkout = CompletedWorkout(
-//            routineName: activeWorkout.routine.name,
-//            date: Date(),
-//            durationSeconds: activeWorkout.durationSeconds,
-//            exercises: activeWorkout.exercises
-//        )
-//
-//        WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
-//
-//        print("💾 Workout saved: \(completedWorkout.durationSeconds)s")
-//
-//        // 👉 Go to SUMMARY SCREEN
-//        let summaryVC = UIStoryboard(name: "Main", bundle: nil)
-//            .instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
-//
-//        summaryVC.completedWorkout = completedWorkout
-//
-//        navigationController?.pushViewController(summaryVC, animated: true)
-//    }
+
     func handleSaveWorkout() {
         globalTimer?.invalidate()
 
-        // ✅ Authoritative duration calculation
+        // Authoritative duration calculation
         let elapsed = Int(Date().timeIntervalSince(activeWorkout.startTime))
         activeWorkout.durationSeconds = elapsed
 
@@ -317,13 +206,13 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
         let completedWorkout = CompletedWorkout(
             routineName: activeWorkout.routine.name,
             date: Date(),
-            durationSeconds: elapsed,   // ✅ guaranteed correct
+            durationSeconds: elapsed,   //  guaranteed correct
             exercises: activeWorkout.exercises
         )
 
         WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
 
-        let summaryVC = UIStoryboard(name: "Main", bundle: nil)
+        let summaryVC = UIStoryboard(name: "Workout", bundle: nil)
             .instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
 
         summaryVC.completedWorkout = completedWorkout

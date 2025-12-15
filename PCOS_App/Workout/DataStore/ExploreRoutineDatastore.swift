@@ -30,7 +30,7 @@ class RoutineDataStore {
                     durationSeconds: 120
                 )
             ],
-            thumbnailImageName: "plank",
+            thumbnailImageName: "Plank",
             routineDescription: "A gentle warm-up to prepare your muscles and joints."
         ),
 
@@ -52,7 +52,7 @@ class RoutineDataStore {
                     durationSeconds: 300
                 )
             ],
-            thumbnailImageName: "plank",
+            thumbnailImageName: "Plank",
             routineDescription: "A high-intensity routine designed to burn calories quickly."
         
         ),
@@ -152,7 +152,7 @@ class RoutineDataStore {
                     durationSeconds: 180
                 )
             ],
-            thumbnailImageName: "plank",
+            thumbnailImageName: "Plank",
             routineDescription: "A flexibility routine that improves mobility and reduces tension."
         )
     ]

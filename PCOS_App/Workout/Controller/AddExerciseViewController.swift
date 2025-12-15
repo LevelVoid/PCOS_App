@@ -313,6 +313,9 @@ extension AddExerciseViewController: UITableViewDataSource {
 
         return cell
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
 }
 
 extension AddExerciseViewController: UITableViewDelegate {
