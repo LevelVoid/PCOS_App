@@ -19,65 +19,95 @@ class DietViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Diet"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
-        navigationItem.rightBarButtonItem = calendar
-        
-        let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as! NutritionHeader
-        tableView.tableHeaderView = header
-        header.configure()
-        header.frame.size.height = 460
-        
-        tableView.register(LogsTableViewCell.nib(), forCellReuseIdentifier: LogsTableViewCell.identifier)
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        setupAddButton()
-        AddMealButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
-        
-        filterTodaysFoods()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        filterTodaysFoods()
-    }
-    
-    private func filterTodaysFoods() {
-        let startOfToday = Calendar.current.startOfDay(for: Date())
-        let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
-        
-        todaysFoods = dummyData.filter { food in
-            food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow
-        }
-        
-        todaysFoods.sort { $0.timeStamp > $1.timeStamp }
-        tableView.reloadData()
-        
-        print("Found \(todaysFoods.count) foods for today")
-    }
-    
-    private func setupAddButton() {
-        AddMealButton.backgroundColor = UIColor.systemPink
-        AddMealButton.setTitle("Add", for: .normal)
-        AddMealButton.setTitleColor(.white, for: .normal)
-        AddMealButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        AddMealButton.layer.cornerRadius = 25
-    }
-    
-    @IBAction func addButtonTapped(_ sender: UIButton) {
-        AddMealViewController.present(from: self)
-    }
-    
-    @objc func calendarTapped() {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "dietLogs") as? DietCalendarLogsViewController {
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-}
+               navigationController?.navigationBar.prefersLargeTitles = true
 
-// MARK: - UITableView DataSource & Delegate
+               setupNavigation()
+               setupTableView()
+               setupAddButtonStyle()
+               setupHeaderView()
+           }
+
+           override func viewWillAppear(_ animated: Bool) {
+               super.viewWillAppear(animated)
+               filterTodaysFoods()
+           }
+
+           //Setup Helpers
+           private func setupNavigation() {
+               let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
+               navigationItem.rightBarButtonItem = calendar
+           }
+
+           private func setupTableView() {
+               tableView.register(LogsTableViewCell.nib(), forCellReuseIdentifier: LogsTableViewCell.identifier)
+               tableView.dataSource = self
+               tableView.delegate = self
+               tableView.estimatedRowHeight = 100
+               tableView.separatorStyle = .singleLine
+           }
+
+           private func setupAddButtonStyle() {
+               AddMealButton.backgroundColor = UIColor.systemPink
+               AddMealButton.setTitle("Add", for: .normal)
+               AddMealButton.setTitleColor(.white, for: .normal)
+               AddMealButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+               AddMealButton.layer.cornerRadius = 25
+               AddMealButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
+           }
+
+           private func setupHeaderView() {
+               guard let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as? NutritionHeader else {
+                   return
+               }
+               header.configure()
+               header.frame.size.height = 460
+               tableView.tableHeaderView = header
+           }
+
+           //Actions
+           @objc func calendarTapped() {
+               if let vc = storyboard?.instantiateViewController(withIdentifier: "dietLogs") as? DietCalendarLogsViewController {
+                   navigationController?.pushViewController(vc, animated: true)
+               }
+           }
+
+           @IBAction func addButtonTapped(_ sender: UIButton) {
+               let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+               guard let addVC = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController else {
+                   let addVC = AddMealViewController()
+                   addVC.delegate = self
+                   present(addVC, animated: true)
+                   return
+               }
+               addVC.delegate = self
+               if let sheet = addVC.sheetPresentationController {
+                   if #available(iOS 16.0, *) {
+                       sheet.detents = [.medium(), .large()]
+                       sheet.prefersGrabberVisible = true
+                       sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                       sheet.selectedDetentIdentifier = .medium
+                   }
+               }
+
+               present(addVC, animated: true)
+           }
+
+           //Data / Filtering
+           private func filterTodaysFoods() {
+               let startOfToday = Calendar.current.startOfDay(for: Date())
+               let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+               let allFoods = FoodLogDataSource.sampleFoods
+               todaysFoods = allFoods.filter { food in
+                   food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow
+               }
+               todaysFoods.sort { $0.timeStamp > $1.timeStamp }
+               tableView.reloadData()
+               print("DietVC — found \(todaysFoods.count) foods for today")
+           }
+       }
+
+
+//UITableView DataSource & Delegate
 extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todaysFoods.count
@@ -90,11 +120,11 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
     
-    // MARK: - Handle Row Selection (THIS IS THE KEY METHOD)
+    //Handle Row Selection (THIS IS THE KEY METHOD)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

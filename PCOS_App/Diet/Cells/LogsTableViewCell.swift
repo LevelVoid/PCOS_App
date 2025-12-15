@@ -38,5 +38,15 @@ class LogsTableViewCell: UITableViewCell {
         foodImg.layer.cornerRadius = 10
     }
 
+    private func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let image = UIImage(data: data) else { return }
+
+            DispatchQueue.main.async {
+                self.foodImg.image = image
+            }
+        }.resume()
+    }
+
     
 }

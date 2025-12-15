@@ -229,6 +229,10 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nK5-J7-mHC">
+                                <rect key="frame" x="16" y="588" width="361" height="196"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9XX-vY-pUv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -236,9 +240,13 @@
                             <constraint firstItem="9XX-vY-pUv" firstAttribute="trailing" secondItem="Lkz-NJ-BtJ" secondAttribute="trailing" constant="20" id="42D-rr-X6Y"/>
                             <constraint firstItem="Qa9-pr-HrP" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="20" id="4UC-iY-LAL"/>
                             <constraint firstItem="Qa9-pr-HrP" firstAttribute="top" secondItem="Lkz-NJ-BtJ" secondAttribute="bottom" constant="20" id="Dia-eb-9hf"/>
+                            <constraint firstItem="nK5-J7-mHC" firstAttribute="bottom" secondItem="9XX-vY-pUv" secondAttribute="bottom" id="GRL-8b-Hfi"/>
+                            <constraint firstItem="nK5-J7-mHC" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="16" id="IBJ-9e-kxF"/>
+                            <constraint firstItem="9XX-vY-pUv" firstAttribute="trailing" secondItem="nK5-J7-mHC" secondAttribute="trailing" constant="16" id="fAA-Xm-6UP"/>
                             <constraint firstItem="Lkz-NJ-BtJ" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="30" id="fj8-Kx-vvz"/>
                             <constraint firstItem="9XX-vY-pUv" firstAttribute="trailing" secondItem="Qa9-pr-HrP" secondAttribute="trailing" constant="20" id="ipj-Ed-k9g"/>
                             <constraint firstItem="Lkz-NJ-BtJ" firstAttribute="top" secondItem="9XX-vY-pUv" secondAttribute="top" constant="100" id="kcx-8c-xzw"/>
+                            <constraint firstItem="nK5-J7-mHC" firstAttribute="top" secondItem="Qa9-pr-HrP" secondAttribute="bottom" id="mJE-CB-XT1"/>
                         </constraints>
                     </view>
                     <connections>
