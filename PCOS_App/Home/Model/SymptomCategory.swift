@@ -17,19 +17,19 @@ struct SymptomCategory {
             SymptomItem(name: "Brown", icon: "BrownSpottingIcon")
         ]),
         SymptomCategory(title: "Discharge", items: [
-            SymptomItem(name: "Dry", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Sticky", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Creamy", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Watery", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Egg White", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Unusual", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Position Cervix", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Texture", icon: "RedSpottingIcon")
+            SymptomItem(name: "Dry", icon: "DryIcon"),
+            SymptomItem(name: "Sticky", icon: "StickyIcon"),
+            SymptomItem(name: "Creamy", icon: "CreamyIcon"),
+            SymptomItem(name: "Watery", icon: "WateryIcon"),
+            SymptomItem(name: "Egg White", icon: "EggWhiteIcon"),
+            SymptomItem(name: "Unusual", icon: "UnusualIcon"),
+            SymptomItem(name: "Position Cervix", icon: "PositionCervixIcon"),
+            SymptomItem(name: "Texture", icon: "TextureIcon")
         ]),
         SymptomCategory(title: "Pain", items: [
-            SymptomItem(name: "Abdominal Cramp", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Tender Breasts", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Low Back Pain", icon: "BrownSpottingIcon"),
+            SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon"),
+            SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon"),
+            SymptomItem(name: "Low Back Pain", icon: "BackPainIcon"),
             SymptomItem(name: "Headache", icon: "HeadacheIcon"),
             SymptomItem(name: "Vulvar Pain", icon: "VulvarPainIcon")
         ]),
@@ -40,7 +40,7 @@ struct SymptomCategory {
             SymptomItem(name: "Hirutism", icon: "HirutismIcon")
         ]),
         SymptomCategory(title: "Lifestyle", items: [
-            SymptomItem(name: "Fatigue", icon: "RedSpottingIcon"),
+            SymptomItem(name: "Fatigue", icon: "FatigueIcon"),
             SymptomItem(name: "Insomnia", icon: "InsomniaIcon"),
             SymptomItem(name: "Depressed", icon: "DepressedIcon"),
             SymptomItem(name: "Anxiety", icon: "AnxietyIcon")
@@ -52,14 +52,14 @@ struct SymptomCategory {
             SymptomItem(name: "Gas", icon: "GasIcon")
         ]),
         SymptomCategory(title: "Breast Self Exam", items: [
-            SymptomItem(name: "Everything is fine", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Engorgement", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Lump", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Dimple", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Skin Redness", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Cracked nipples", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Pain", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Nipple Discharge", icon: "BrownSpottingIcon"),
+            SymptomItem(name: "Everything is fine", icon: "FineIcon"),
+            SymptomItem(name: "Engorgement", icon: "EngorgementIcon"),
+            SymptomItem(name: "Lump", icon: "LumpIcon"),
+            SymptomItem(name: "Dimple", icon: "DimpleIcon"),
+            SymptomItem(name: "Skin Redness", icon: "SkinRednessIcon"),
+            SymptomItem(name: "Cracked nipples", icon: "CrackedNipplesIcon"),
+            SymptomItem(name: "Pain", icon: "PainIcon"),
+            SymptomItem(name: "Nipple Discharge", icon: "NippleDischargeIcon"),
 
         ])
     ]

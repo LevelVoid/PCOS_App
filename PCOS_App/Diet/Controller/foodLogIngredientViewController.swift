@@ -72,17 +72,16 @@ class foodLogIngredientViewController: UIViewController {
             ])
         }
         
-        // MARK: - Setup Header
+        //Header setuo
         private func setupHeader() {
-            print("DEBUG: setupHeader - Start")
+
             
             guard let food = food else {
-                print("Error: No food data available")
+                print("No food data available")
                 return
             }
             
             guard let containerView = foodweightView else {
-                print("Error: foodweightView outlet is not connected!")
                 return
             }
             

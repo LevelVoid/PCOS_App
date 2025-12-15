@@ -16,6 +16,9 @@ class SymptomLoggerViewController: UIViewController {
     private var categories = SymptomCategory.allCategories
     private var selectedSymptoms: Set<IndexPath> = []
     
+    var onSymptomsSelected: (([LoggedSymptoms]) -> Void)?
+    private var preSelectedSymptoms: [LoggedSymptoms] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +37,7 @@ class SymptomLoggerViewController: UIViewController {
         doneButton.tintColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.8)
 
         setupCollectionView()
+        preselectSymptoms()
         
     }
     
@@ -42,12 +46,27 @@ class SymptomLoggerViewController: UIViewController {
             collectionView.dataSource = self
         }
     
-//
+    func setSelectedSymptoms(_ symptoms: [LoggedSymptoms]) {
+            self.preSelectedSymptoms = symptoms
+        }
+    
+    private func preselectSymptoms() {
+            for symptom in preSelectedSymptoms {
+                // Find matching symptom in categories
+                for (sectionIndex, category) in categories.enumerated() {
+                    if let itemIndex = category.items.firstIndex(where: { $0.name == symptom.name }) {
+                        let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
+                        selectedSymptoms.insert(indexPath)
+                    }
+                }
+            }
+            collectionView.reloadData()
+        }
 
     @objc private func doneButtonTapped(_ sender: Any) {
             let symptoms = getSelectedSymptoms()
-            print("Selected symptoms: \(symptoms)")
-            // TODO: Pass data back or save to DataStore
+        
+        onSymptomsSelected?(symptoms)
             navigationController?.popViewController(animated: true)
         }
         
@@ -80,17 +99,10 @@ class SymptomLoggerViewController: UIViewController {
             // Try to dequeue
             let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: SymptomItemCollectionViewCell.identifier, for: indexPath)
             
-            print("🔍 Dequeued cell type: \(type(of: dequeuedCell))")
-            print("🔍 Is SymptomItemCollectionViewCell? \(dequeuedCell is SymptomItemCollectionViewCell)")
-            
-            guard let cell = dequeuedCell as? SymptomItemCollectionViewCell else {
-                print("❌ FAILED TO CAST! Dequeued: \(type(of: dequeuedCell))")
-                print("❌ Check Storyboard:")
-                print("   1. Cell Class = SymptomItemCollectionViewCell")
-                print("   2. Cell Identifier = SymptomItemCollectionViewCell")
-                fatalError("Cell configuration error")
+            //In case the cell after unwrapping is nil then else
+            guard let cell = dequeuedCell as? SymptomItemCollectionViewCell else{
+                return dequeuedCell //returns dequed cell if cast fails
             }
-          
             let symptom = categories[indexPath.section].items[indexPath.item]
             let isSelected = selectedSymptoms.contains(indexPath)
        
@@ -121,28 +133,28 @@ class SymptomLoggerViewController: UIViewController {
         }
     }
 
-// MARK: - UICollectionViewDelegateFlowLayout
+//// MARK: - UICollectionViewDelegateFlowLayout
 extension SymptomLoggerViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 4 items per row
-        let padding: CGFloat = 16 + 16 // left + right insets
-        let spacing: CGFloat = 10 * 3 // 3 gaps between 4 items
+        // 4 items per row with reduced spacing
+        let padding: CGFloat = 20 + 20 // left + right insets
+        let spacing: CGFloat = 12 * 3 // 3 gaps between 4 items (reduced from 10)
         let availableWidth = collectionView.bounds.width - padding - spacing
         let itemWidth = availableWidth / 4
-        return CGSize(width: itemWidth, height: itemWidth * 1.3) // height slightly more than width
+        return CGSize(width: itemWidth, height: itemWidth * 1.2) // Slightly reduced height ratio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 16, bottom: 20, right: 16)
+        return UIEdgeInsets(top: 8, left: 20, bottom: 16, right: 20) // Reduced bottom padding
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSection section: Int) -> CGFloat {
-        return 10
+        return 12 // Reduced from 10 to bring cells closer horizontally
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSection section: Int) -> CGFloat {
-        return 12
+        return 12 // Keep consistent vertical spacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

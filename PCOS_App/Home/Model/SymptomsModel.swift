@@ -14,8 +14,8 @@ struct SymptomItem {
     var isSelected: Bool = false
 }
 
-//LOgged Symptoms
-struct LoggedSymptoms {
+//LOgged Symptoms: codable for userdefaults storage
+struct LoggedSymptoms: Codable {
     let date: Date
     let name: String
     let icon: String

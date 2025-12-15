@@ -20,14 +20,12 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
         
         if IconImage != nil && symptomLabel != nil {
                 setupUI()
-            } else {
-                print("⚠️ ERROR: IBOutlets not connected in Storyboard!")
             }
     }
     
     private func setupUI(){
         // Cell background and corners
-        //contentView.backgroundColor = UIColor(red: 1.0, green: 0.87, blue: 0.96, alpha: 1.0) // Light purple/lavender
+        contentView.backgroundColor = .clear
             contentView.layer.cornerRadius = 20
             contentView.clipsToBounds = true
             
@@ -41,7 +39,7 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
 //            symptomLabel?.textAlignment = .center
 //            symptomLabel?.numberOfLines = 2
 //            symptomLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-            //symptomLabel?.textColor = UIColor(red: 0.56, green: 0.56, blue: 0.58, alpha: 1.0) // Gray color
+            //symptomLabel?.textColor = .gray // Gray color
         }
     
     func configure(with symptom: SymptomItem, isSelected: Bool) {
@@ -59,14 +57,21 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     
     private func updateSelectionState(_ isSelected: Bool) {
         if isSelected {
-                    contentView.backgroundColor = UIColor.systemPurple
-                    IconImage.tintColor = .white
+                    contentView.backgroundColor = UIColor.systemGray3
+                    //IconImage.tintColor = .white
                     symptomLabel.textColor = .white
                 } else {
-                    //contentView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.15)
-                    //IconImage.tintColor = .systemPurple
+                    contentView.backgroundColor = .clear
+                    //IconImage.tintColor = .gray
                     symptomLabel.textColor = .gray
                 }
+        }
+    //Added this to ensure state is reset when cell is reused
+        override func prepareForReuse() {
+            super.prepareForReuse()
+            contentView.backgroundColor = .clear
+            symptomLabel.textColor = .gray
+            IconImage.tintColor = .gray
         }
 
 }
