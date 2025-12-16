@@ -12,7 +12,8 @@ class SummaryViewController: UIViewController {
     
     var completedWorkout: CompletedWorkout!
 
-        // Goals (you can fetch these from user settings)
+    @IBOutlet weak var containerView: UIView!
+    // Goals (you can fetch these from user settings)
         let caloriesGoal = 600.0
         let durationGoalSeconds = 120 * 60  // 2 hours
 
@@ -32,22 +33,67 @@ class SummaryViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
+           
+            modalPresentationStyle = .overCurrentContext
+                view.backgroundColor = .clear
+
+            navigationItem.hidesBackButton = true
+            view.backgroundColor = .clear
+            //addDimmedBackground()
+            view.backgroundColor = .clear
+                addOverlayBackground()
+                
             setupUI()
             applyCardStyling()
             showConfetti()
         }
+//        private func addBlurBackground() {
+//            let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterialLight))
+//            blur.frame = view.bounds
+//            blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            view.insertSubview(blur, at: 0)
+//        }
+//    private func addDimmedBackground() {
+//        let dimView = UIView(frame: view.bounds)
+//        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+//        dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.insertSubview(dimView, at: 0)
+//
+//        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+//        blur.frame = view.bounds
+//        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.insertSubview(blur, aboveSubview: dimView)
+//    }
+
+    private func addOverlayBackground() {
+
+        // Dim
+        let dimView = UIView(frame: view.bounds)
+        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+        dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(dimView)
+
+        // Blur (THIS blurs StartRoutine, not Summary)
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+        blur.frame = view.bounds
+        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blur, aboveSubview: dimView)
+
+        // Card above blur
+        view.bringSubviewToFront(containerView)
+    }
 
         func setupUI() {
 
             // ---- DURATION ----
             let totalSeconds = completedWorkout.durationSeconds
             durationValueLabel.text = formatDuration(totalSeconds)
-            durationGoalLabel.text = "/ " + formatDuration(durationGoalSeconds)
+            //durationGoalLabel.text = "/ " + formatDuration(durationGoalSeconds)
 
             // ---- CALORIES ----
             let calories = Double(totalSeconds) * 0.18
             caloriesValueLabel.text = String(format: "%.0f", calories)
-            caloriesGoalLabel.text = "/\(Int(caloriesGoal))"
+      //      caloriesGoalLabel.text = "/\(Int(caloriesGoal))"
 
             // ---- EXERCISES DONE ----
             let completedExercises = completedWorkout.exercises.filter {
@@ -61,10 +107,11 @@ class SummaryViewController: UIViewController {
             let cards = [caloriesCard, exercisesCard, durationCard]
             cards.forEach { card in
                 card?.layer.cornerRadius = 20
-                card?.layer.shadowColor = UIColor.black.cgColor
-                card?.layer.shadowOpacity = 0.08
-                card?.layer.shadowOffset = CGSize(width: 0, height: 3)
-                card?.layer.shadowRadius = 6
+                //card?.layer.shadowColor = UIColor.black.cgColor
+                //card?.layer.shadowOpacity = 0.08
+                //card?.layer.shadowOffset = CGSize(width: 0, height: 3)
+                //card?.layer.shadowRadius = 6
+                card?.backgroundColor = .systemGray6
                 card?.layer.masksToBounds = false
             }
         }
@@ -74,9 +121,9 @@ class SummaryViewController: UIViewController {
             let mins = (seconds % 3600) / 60
 
             if hrs > 0 {
-                return "\(hrs)h \(mins)min"
+                return "\(hrs)h \(mins)"
             } else {
-                return "\(mins)min"
+                return "\(mins)"
             }
         }
 
@@ -166,6 +213,23 @@ class SummaryViewController: UIViewController {
     }
 
     @IBAction func doneButtonTapped(_ sender: UIButton) {
-        navigationController?.popToRootViewController(animated: true)
+        
+        
+        
+        //        guard
+        //                let startVC = presentingViewController as? StartRoutineViewController,
+        //                let nav = startVC.navigationController
+        //            else {
+        //                dismiss(animated: true)
+        //                return
+        //            }
+        //
+        //            dismiss(animated: true) {
+        //                startVC.tabBarController?.tabBar.isHidden = false
+        //                nav.popToRootViewController(animated: true)
+        //            }
+        //    }
+        dismiss(animated: true)
     }
+
 }

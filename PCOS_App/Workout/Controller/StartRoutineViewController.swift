@@ -124,6 +124,7 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
             // 5️⃣ Update stats & progress
             updateStats()
             updateProgress()
+        definesPresentationContext = true
     }
     
     @IBOutlet weak var startRoutineTableView: UITableView!
@@ -212,11 +213,22 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
 
         WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
 
+        
+//        // Hide nav + tab bar FIRST
+//            navigationController?.setNavigationBarHidden(true, animated: false)
+//            tabBarController?.tabBar.isHidden = true
         let summaryVC = UIStoryboard(name: "Workout", bundle: nil)
             .instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
 
         summaryVC.completedWorkout = completedWorkout
-        navigationController?.pushViewController(summaryVC, animated: true)
+        //ABHI
+//        navigationController?.pushViewController(summaryVC, animated: true)
+        
+        summaryVC.modalPresentationStyle = .overFullScreen
+      //  summaryVC.modalPresentationStyle = .overCurrentContext
+            summaryVC.modalTransitionStyle = .crossDissolve
+
+            present(summaryVC, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

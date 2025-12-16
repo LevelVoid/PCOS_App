@@ -34,7 +34,7 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
 //        exploreRoutineImage.contentMode = .scaleAspectFill
         exploreRoutineImage.clipsToBounds = true
         cellBackgroundView.backgroundColor = .systemGray6
-        cellBackgroundView.layer.cornerRadius = 10
+        cellBackgroundView.layer.cornerRadius = 20
     }
 
 

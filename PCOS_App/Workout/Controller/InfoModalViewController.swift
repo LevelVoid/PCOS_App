@@ -33,6 +33,7 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title=exercise.name
         guard exercise != nil else {
                 fatalError("InfoModalViewController: exercise must be set before presenting")
             }
@@ -69,6 +70,11 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
             .commonMistakes(exercise.commonMistakes)
         ]
     }
+    
+    @IBAction func infoCloseButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -115,7 +121,7 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
     }
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 20
     }
 
     

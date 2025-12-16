@@ -44,7 +44,7 @@ class RoutineExerciseTableViewCell: UITableViewCell {
         containerView.layer.shadowRadius = 10
         containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
         
-        exerciseImageView.contentMode = .scaleAspectFill
+        //exerciseImageView.contentMode = .scaleAspectFill
         exerciseImageView.clipsToBounds = true
         exerciseImageView.layer.cornerRadius = 8
         
