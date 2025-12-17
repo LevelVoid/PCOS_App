@@ -12,8 +12,8 @@ class GoalCards: UICollectionViewCell {
     @IBOutlet weak var progressView: CircularProgressView!
     
     @IBOutlet weak var card: UIView!
-    @IBOutlet weak var goal: UILabel!
-    @IBOutlet weak var toBeCompleted: UILabel!
+    @IBOutlet weak var done: UILabel!
+    @IBOutlet weak var toBeDone: UILabel!
     @IBOutlet weak var cardName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -29,6 +29,10 @@ class GoalCards: UICollectionViewCell {
         card.layer.masksToBounds = true
         card.layer.borderWidth = 1
         card.layer.borderColor = UIColor.systemGray5.cgColor
+        
+        done.text = "\(Int(model.done ?? 0))"
+        toBeDone.text = "/\(Int(model.toBeDone))"
+        progressView.setProgress(to: Float(CGFloat(model.done ?? 0) / CGFloat(model.toBeDone)))
         
     }
     

@@ -25,6 +25,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZhX-MC-JAQ">
                                         <rect key="frame" x="15" y="15" width="35" height="35"/>
+                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="0.80157900530000004" colorSpace="custom" customColorSpace="displayP3"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -82,10 +83,10 @@
             <connections>
                 <outlet property="card" destination="cdd-be-Ncz" id="zco-Kp-VBL"/>
                 <outlet property="cardName" destination="82B-Zo-ja7" id="12K-cR-7Gi"/>
-                <outlet property="goal" destination="6g1-q2-sdK" id="Oev-7y-UZd"/>
+                <outlet property="done" destination="6g1-q2-sdK" id="Oev-7y-UZd"/>
                 <outlet property="imageView" destination="ZhX-MC-JAQ" id="90n-Fh-VZq"/>
                 <outlet property="progressView" destination="DyL-lg-1yX" id="YYY-07-bWW"/>
-                <outlet property="toBeCompleted" destination="g4x-Lw-Xj9" id="WZ8-dV-sZS"/>
+                <outlet property="toBeDone" destination="g4x-Lw-Xj9" id="WZ8-dV-sZS"/>
             </connections>
             <point key="canvasLocation" x="-2297.709923664122" y="1986.6197183098593"/>
         </collectionViewCell>

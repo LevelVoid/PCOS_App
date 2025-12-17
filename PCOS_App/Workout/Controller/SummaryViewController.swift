@@ -47,23 +47,7 @@ class SummaryViewController: UIViewController {
             applyCardStyling()
             showConfetti()
         }
-//        private func addBlurBackground() {
-//            let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterialLight))
-//            blur.frame = view.bounds
-//            blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//            view.insertSubview(blur, at: 0)
-//        }
-//    private func addDimmedBackground() {
-//        let dimView = UIView(frame: view.bounds)
-//        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
-//        dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        view.insertSubview(dimView, at: 0)
-//
-//        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-//        blur.frame = view.bounds
-//        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        view.insertSubview(blur, aboveSubview: dimView)
-//    }
+
 
     private func addOverlayBackground() {
 
@@ -214,21 +198,6 @@ class SummaryViewController: UIViewController {
 
     @IBAction func doneButtonTapped(_ sender: UIButton) {
         
-        
-        
-        //        guard
-        //                let startVC = presentingViewController as? StartRoutineViewController,
-        //                let nav = startVC.navigationController
-        //            else {
-        //                dismiss(animated: true)
-        //                return
-        //            }
-        //
-        //            dismiss(animated: true) {
-        //                startVC.tabBarController?.tabBar.isHidden = false
-        //                nav.popToRootViewController(animated: true)
-        //            }
-        //    }
         dismiss(animated: true)
     }
 

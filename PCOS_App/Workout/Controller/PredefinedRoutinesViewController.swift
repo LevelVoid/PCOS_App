@@ -56,6 +56,10 @@ class PredefinedRoutinesViewController: UIViewController,UITableViewDelegate, UI
             
             return cell
         }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
         
         // MARK: - Save Routine
         @IBAction func saveRoutineTapped(_ sender: UIButton) {

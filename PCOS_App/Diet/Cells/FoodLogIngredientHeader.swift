@@ -10,7 +10,7 @@ import UIKit
 class FoodLogIngredientHeader: UIView {
     
     @IBOutlet weak var FoodImageView: UIImageView!
-    
+
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
     @IBOutlet weak var fatsLabel: UILabel!

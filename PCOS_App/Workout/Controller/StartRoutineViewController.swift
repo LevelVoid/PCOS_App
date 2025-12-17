@@ -197,38 +197,29 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
 
     func handleSaveWorkout() {
         globalTimer?.invalidate()
-
-        // Authoritative duration calculation
+        
+     
         let elapsed = Int(Date().timeIntervalSince(activeWorkout.startTime))
         activeWorkout.durationSeconds = elapsed
-
+        
         activeWorkout.finish()
-
+        
         let completedWorkout = CompletedWorkout(
             routineName: activeWorkout.routine.name,
             date: Date(),
-            durationSeconds: elapsed,   //  guaranteed correct
+            durationSeconds: elapsed,  
             exercises: activeWorkout.exercises
         )
-
-        WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
-
         
-//        // Hide nav + tab bar FIRST
-//            navigationController?.setNavigationBarHidden(true, animated: false)
-//            tabBarController?.tabBar.isHidden = true
+        WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
+        
+        
         let summaryVC = UIStoryboard(name: "Workout", bundle: nil)
             .instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
-
-        summaryVC.completedWorkout = completedWorkout
-        //ABHI
-//        navigationController?.pushViewController(summaryVC, animated: true)
         
-        summaryVC.modalPresentationStyle = .overFullScreen
-      //  summaryVC.modalPresentationStyle = .overCurrentContext
-            summaryVC.modalTransitionStyle = .crossDissolve
-
-            present(summaryVC, animated: true)
+        summaryVC.completedWorkout = completedWorkout
+        
+        navigationController?.popToRootViewController(animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

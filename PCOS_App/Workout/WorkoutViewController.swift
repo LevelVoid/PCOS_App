@@ -9,7 +9,7 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
-    private var cards: [Card] = [Card(name:"Calories burnt", image: "flame.fill"),Card(name: "Steps", image: "figure.walk"), Card(name: "Duration", image: "stopwatch.fill")]
+    private var cards: [Card] = [Card(name:"Calories burnt", image: "flame.fill", toBeDone: 300, done: 0),Card(name: "Steps", image: "figure.walk", toBeDone: 8000, done: 5000), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0)]
     private var exploreRoutine: [Routine] = RoutineDataStore.shared.predefinedRoutines
     
     private var selectedPredefinedRoutine: Routine?
@@ -156,7 +156,12 @@ class WorkoutViewController: UIViewController {
     //to reload the screen for latest routines to appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        cards[2].done = Double(WorkoutSessionManager.shared.getTime())
+        cards[0].done = (cards[2].done ?? 0)*1.5
+        print("View appeared")
+        for i in cards{
+            print(i.name, i.done, i.toBeDone)
+        }
         collectionView.reloadData()
     }
 

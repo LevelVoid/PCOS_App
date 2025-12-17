@@ -50,7 +50,7 @@ class CompletionCircleView: UIView {
 
             progressLayer.fillColor = UIColor.clear.cgColor
             progressLayer.lineCap = .round
-            progressLayer.strokeEnd = 50.0 / 100.0
+            progressLayer.strokeEnd = 0
             layer.addSublayer(progressLayer)
 
             trackLayer.lineWidth = lineWidth
@@ -82,9 +82,9 @@ class CompletionCircleView: UIView {
         }
     
     func setProgress(to value: Float, animated: Bool = true) {
-            let clampedValue = max(0, min(1, value))
-            
-            if animated {
+                let clampedValue = max(0, min(1, value))
+                
+                if animated {
                 let animation = CABasicAnimation(keyPath: "strokeEnd")
                 animation.fromValue = progressLayer.strokeEnd
                 animation.toValue = clampedValue
@@ -105,4 +105,5 @@ class CompletionCircleView: UIView {
             }
             self.setProgress(to: progress)
         }
+    
 }

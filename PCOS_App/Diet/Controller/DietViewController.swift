@@ -14,7 +14,7 @@ class DietViewController: UIViewController {
     var dummyData = FoodLogDataSource.sampleFoods
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var AddMealButton: UIButton!
-    
+    private var headerView: NutritionHeader?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,7 @@ class DietViewController: UIViewController {
                tableView.dataSource = self
                tableView.delegate = self
                tableView.estimatedRowHeight = 100
+               tableView.rowHeight = 100
                tableView.separatorStyle = .singleLine
            }
 
@@ -59,6 +60,7 @@ class DietViewController: UIViewController {
                guard let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as? NutritionHeader else {
                    return
                }
+               self.headerView = header
                header.configure()
                header.frame.size.height = 460
                tableView.tableHeaderView = header
@@ -133,18 +135,26 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
         print("🔍 Selected food: \(selectedFood.name)")
         
         // Navigate to foodLogIngredientViewController
-        foodLogIngredientViewController.present(from: self, with: selectedFood)
+        FoodLogIngredientViewController.present(from: self, with: selectedFood)
     }
 }
 
 // MARK: - AddMeal Delegate
 extension DietViewController: AddMealDelegate {
     func didAddMeal(_ food: Food) {
+        // Save to data source
         FoodLogDataSource.addFoodBarCode(food)
-        todaysFoods.append(food)
-        dummyData.append(food)
+
+        // If the added meal is today, incrementally update the header
+        let startOfToday = Calendar.current.startOfDay(for: Date())
+        let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+        if food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow {
+            headerView?.updateValues(food)
+        }
+
+        // Refresh list
         filterTodaysFoods()
-        tableView.reloadData()
         print("Added food: \(food.name)")
     }
 }
+

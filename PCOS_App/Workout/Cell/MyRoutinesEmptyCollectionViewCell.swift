@@ -19,7 +19,7 @@ class MyRoutinesEmptyCollectionViewCell: UICollectionViewCell {
         containerView.layer.borderWidth = 1
         containerView.layer.borderColor = UIColor.systemGray5.cgColor
         
-        messageLabel.text = "Get started by adding a routine"
+        messageLabel.text = "Get started by creating a routine"
         messageLabel.textColor = .systemGray3
         messageLabel.textAlignment = .center
         messageLabel.font = .systemFont(ofSize: 16, weight: .medium)

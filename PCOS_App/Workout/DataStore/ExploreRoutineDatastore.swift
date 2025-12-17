@@ -52,7 +52,7 @@ class RoutineDataStore {
                     durationSeconds: 300
                 )
             ],
-            thumbnailImageName: "Plank",
+            thumbnailImageName: "mountain_climbers",
             routineDescription: "A high-intensity routine designed to burn calories quickly."
         
         ),
@@ -75,7 +75,7 @@ class RoutineDataStore {
                     durationSeconds: 240
                 )
             ],
-            thumbnailImageName: "warm-up",
+            thumbnailImageName: "cat_cow",
             routineDescription: "A calming yoga flow that improves mobility and breathing."
         ),
 
@@ -102,7 +102,7 @@ class RoutineDataStore {
                     reps: 12
                 )
             ],
-            thumbnailImageName: "warm-up",
+            thumbnailImageName: "leg_press",
             routineDescription: "A strength-focused routine to build lower body power."
         ),
 
@@ -130,7 +130,7 @@ class RoutineDataStore {
                     weightKg: 10
                 )
             ],
-            thumbnailImageName: "warm-up",
+            thumbnailImageName: "tricep_pushdown",
             routineDescription: "Targets chest, back, shoulders, and arms for upper body strength."
         ),
 
@@ -152,7 +152,7 @@ class RoutineDataStore {
                     durationSeconds: 180
                 )
             ],
-            thumbnailImageName: "Plank",
+            thumbnailImageName: "worlds_greatest",
             routineDescription: "A flexibility routine that improves mobility and reduces tension."
         )
     ]

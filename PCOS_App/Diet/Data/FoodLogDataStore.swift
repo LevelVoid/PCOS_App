@@ -13,6 +13,16 @@ struct FoodLogDataSource {
         sampleFoods.append(barCode)
     }
     
+    static var ingredient = Ingredient(id: UUID(), name: "Default Ingredient", quantity: 0, protein: 0, carbs: 0, fats: 0, fibre: 0, tags: [.none])
+    
+    static func filteredFoods()->[Food] {
+        let startOfToday = Calendar.current.startOfDay(for: Date())
+        let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+        let allFoods = FoodLogDataSource.sampleFoods
+        return allFoods.filter { food in
+            food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow
+        }
+    }
     
     static var sampleFoods: [Food] = [
         // TODAY - Morning

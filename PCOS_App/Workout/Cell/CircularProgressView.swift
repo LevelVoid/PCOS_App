@@ -11,8 +11,15 @@ class CircularProgressView: UIView {
     private let backgroundLayer = CAShapeLayer()
     private let progressLayer = CAShapeLayer()
 
-    var progressColor: UIColor = .systemOrange {
-        didSet { progressLayer.strokeColor = progressColor.cgColor }
+    var progressColor: UIColor = UIColor(
+        red: 254/255,
+        green: 122/255,
+        blue: 150/255,
+        alpha: 0.8
+    ) {
+        didSet {
+            progressLayer.strokeColor = progressColor.cgColor
+        }
     }
 
     var trackColor: UIColor = UIColor.systemGray5 {
@@ -28,9 +35,7 @@ class CircularProgressView: UIView {
     }
 
     // 0.0 → 1.0
-    var progress: CGFloat = 0 {
-        didSet { animateProgress() }
-    }
+    var progress: CGFloat = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,16 +84,20 @@ class CircularProgressView: UIView {
         progressLayer.path = circlePath.cgPath
     }
 
-    private func animateProgress() {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.fromValue = progressLayer.strokeEnd
-        animation.toValue = progress
-        animation.duration = 0.5
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-
-        progressLayer.strokeEnd = progress
-        progressLayer.add(animation, forKey: "progressAnimation")
-    }
+    
+    func setProgress(to value: Float, animated: Bool = true) {
+                let clampedValue = max(0, min(1, value))
+                
+                if animated {
+                let animation = CABasicAnimation(keyPath: "strokeEnd")
+                animation.fromValue = progressLayer.strokeEnd
+                animation.toValue = clampedValue
+                animation.duration = 0.5
+                animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                progressLayer.strokeEnd = CGFloat(clampedValue)
+                progressLayer.add(animation, forKey: "animateProgress")
+            } else {
+                progressLayer.strokeEnd = CGFloat(clampedValue)
+            }
+        }
 }
-

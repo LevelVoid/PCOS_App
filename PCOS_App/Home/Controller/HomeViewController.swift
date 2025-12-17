@@ -20,15 +20,8 @@ class HomeViewController: UIViewController {
         // Set title
         title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        // Configure profile button
-        //        let profile = UIBarButtonItem(
-        //            image: UIImage(systemName: "person.circle"),
-        //            style: .plain,
-        //            target: self,
-        //            action: #selector(addTapped)
-        //        )
-        //        navigationItem.rightBarButtonItem = profile
+        let profile = UIBarButtonItem(image:UIImage(systemName:"person.circle"), style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = profile
         
         //        // Make sure LogButton is added to view and visible
         //        view.addSubview(LogButton)
@@ -61,6 +54,11 @@ class HomeViewController: UIViewController {
         symptomsCollectionView.reloadData()        }
     }
     
+    @objc func addTapped() {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "profileVC") as? ProfileViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
 //    @IBAction func logButtonTapped(_ sender: UIButton) {
 //        performSegue(withIdentifier: "showSymptomLogger", sender: self)

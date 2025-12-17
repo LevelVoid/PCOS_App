@@ -9,11 +9,15 @@ import UIKit
 
 class FoodIngredientListTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var IngedientNameLabel: UILabel!
+    @IBOutlet weak var IngredientNameLabel: UILabel!
     @IBOutlet weak var IngredientCalorieLabel: UILabel!
     
     @IBOutlet weak var IngredientWeightLabel: UILabel!
     
+    static var identifier = "FoodIngredientListTableViewCell"
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,6 +27,12 @@ class FoodIngredientListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configureCell(with ingredient: Ingredient){
+        IngredientNameLabel.text = ingredient.name
+        IngredientCalorieLabel.text = "\(ingredient.calories) kcal"
+        IngredientWeightLabel.text = "\(ingredient.weight, default: "100") g"
     }
     
 }

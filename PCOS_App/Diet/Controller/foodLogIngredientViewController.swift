@@ -7,7 +7,7 @@
 
 import UIKit
 
-class foodLogIngredientViewController: UIViewController {
+class FoodLogIngredientViewController: UIViewController {
     
     @IBOutlet weak var servingStepper: UIStepper!
     @IBOutlet weak var servingNumberLabel: UILabel!
@@ -15,10 +15,11 @@ class foodLogIngredientViewController: UIViewController {
     @IBOutlet weak var FoodWeightLabel: UILabel!
     @IBOutlet weak var horizontalStackView: UIStackView!
     
+    @IBOutlet weak var tableView: UITableView!
     
     // Header view
         private var headerView: FoodLogIngredientHeader!
-        
+        let defaultIngredient = FoodLogDataSource.ingredient
         // Food data
         var food: Food!
         private var servingMultiplier: Double = 1.0
@@ -27,7 +28,10 @@ class foodLogIngredientViewController: UIViewController {
             super.viewDidLoad()
             
             print("DEBUG: viewDidLoad started")
-            
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.register(FoodIngredientListTableViewCell.nib(), forCellReuseIdentifier: FoodIngredientListTableViewCell.identifier)
+
             // Validate food data exists
             guard food != nil else {
                 print("Error: No food data provided")
@@ -283,7 +287,7 @@ class foodLogIngredientViewController: UIViewController {
                 return
             }
             
-            guard let ingredientVC = storyboard.instantiateViewController(withIdentifier: "foodLogIngredientViewController") as? foodLogIngredientViewController else {
+            guard let ingredientVC = storyboard.instantiateViewController(withIdentifier: "foodLogIngredientViewController") as? FoodLogIngredientViewController else {
                 print("Error: Could not instantiate foodLogIngredientViewController")
                 return
             }
@@ -297,3 +301,35 @@ class foodLogIngredientViewController: UIViewController {
             }
         }
     }
+
+extension FoodLogIngredientViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return food.ingredients?.count ?? 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if food.ingredients?.isEmpty == true {
+            let cell = tableView.dequeueReusableCell(withIdentifier: FoodIngredientListTableViewCell.identifier, for: indexPath) as! FoodIngredientListTableViewCell
+            cell.IngredientNameLabel.text = food.name
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: FoodIngredientListTableViewCell.identifier, for: indexPath) as! FoodIngredientListTableViewCell
+            
+            let ingredient = food.ingredients?[indexPath.row] ?? defaultIngredient
+            cell.configureCell(with: ingredient)
+            
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        75
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Ingredients"
+    }
+    
+    
+}

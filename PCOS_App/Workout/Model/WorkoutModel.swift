@@ -4,7 +4,7 @@
 //
 //  Created by SDC-USER on 22/11/25.
 //
-import UIKit//for gif 
+import UIKit//for gif
 import Foundation
 enum Equipment: String, Codable, CaseIterable {
     case allEquipment,none,barbell,dumbbell,kettlebell,machine,resistanceBand,plate
@@ -209,6 +209,8 @@ struct RoutineExercise: Codable, Identifiable {
 struct Card {
     let name: String
     let image: String
+    var toBeDone: Double
+    var done: Double?
 }
 
 
@@ -232,7 +234,7 @@ struct Routine: Identifiable, Codable {
     var name: String
     var exercises: [RoutineExercise]
     var createdAt: Date = Date()
-    var thumbnailImageName: String?//new added property 
+    var thumbnailImageName: String?//new added property
     var routineDescription: String?
     var totalExercises: Int { exercises.count }
     
@@ -289,11 +291,12 @@ struct CompletedWorkout {
     var date: Date
     var durationSeconds: Int
     var exercises: [WorkoutExercise]
+    
 }
 class WorkoutSessionManager {
     static let shared = WorkoutSessionManager()
     private init() {}
-    
+    //var duration: Double
     /// Array of saved routine templates
     var savedRoutines: [Routine] = []
     
@@ -314,6 +317,14 @@ class WorkoutSessionManager {
     func getRoutine(at index: Int) -> Routine? {
         guard index >= 0 && index < savedRoutines.count else { return nil }
         return savedRoutines[index]
+    }
+    
+    func getTime()->Int{
+        var sum = 0
+        for i in completedWorkouts{
+            sum += i.durationSeconds
+        }
+        return sum
     }
     
     // Helper method to delete a routine

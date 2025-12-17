@@ -48,11 +48,20 @@ class AddMealViewController: UIViewController{
     //done button
     private let doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.setTitleColor(UIColor(hexString: "fe7a96"), for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        let image = UIImage(systemName: "checkmark", withConfiguration: config)
+        button.setImage(image, for: .normal)
+        button.tintColor = .systemGray
+        button.backgroundColor = UIColor.systemGray5
+        button.layer.cornerRadius = 25
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+//        let button = UIButton(type: .system)
+//        button.setTitle("Done", for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+//        button.setTitleColor(UIColor(hexString: "fe7a96"), for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
     }()
     
     private let searchContainer: UIView = {
@@ -187,7 +196,12 @@ class AddMealViewController: UIViewController{
             
             // Done Button
             doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            doneButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+            doneButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
+            doneButton.widthAnchor.constraint(equalToConstant: 50),
+            doneButton.heightAnchor.constraint(equalToConstant: 50),
+            
+//            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            doneButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
             
             optionsStackView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20),
             optionsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -252,6 +266,7 @@ class AddMealViewController: UIViewController{
         
         let label = UILabel()
         label.text = title
+        
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -268,6 +283,7 @@ class AddMealViewController: UIViewController{
             
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 8),
+            label.widthAnchor.constraint(equalToConstant: 10),
             label.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -8)
         ])
         
@@ -304,7 +320,7 @@ class AddMealViewController: UIViewController{
     private func describeMealTapped() {
         let storyboard = UIStoryboard(name: "Diet", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "DescribeFoodViewController") as? DescribeFoodViewController else {
-            print("⚠️ Error: Could not instantiate DescribeFoodViewController from storyboard")
+            print("Error: Could not instantiate DescribeFoodViewController from storyboard")
             assertionFailure("Could not instantiate DescribeFoodViewController")
             return
         }
@@ -457,7 +473,7 @@ extension AddMealViewController: UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Diet", bundle: nil)
         
         guard let detailVC = storyboard.instantiateViewController(withIdentifier: "FoodDetailViewController") as? FoodDetailViewController else {
-            print("⚠️ Error: Could not instantiate FoodDetailViewController")
+            print("Error: Could not instantiate FoodDetailViewController")
             return
         }
         
@@ -468,7 +484,7 @@ extension AddMealViewController: UITableViewDelegate {
         // Callback to receive the selected quantity
         detailVC.onQuantitySelected = { [weak self] quantity in
             self?.selectedQuantities[foodItem.id] = quantity
-            print("📝 Selected \(quantity) serving(s) of \(foodItem.name)")
+            print(" Selected \(quantity) serving(s) of \(foodItem.name)")
         }
         
         // Push to detail screen
@@ -557,7 +573,6 @@ extension AddMealViewController: BarcodeScannerDelegate {
                 let food = product.toFood()
                 
                 DispatchQueue.main.async {
-                    FoodLogDataSource.addFoodBarCode(food)
                     self.delegate?.didAddMeal(food)
                     self.dismiss(animated: true)
                 }

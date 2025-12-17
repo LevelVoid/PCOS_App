@@ -31,9 +31,9 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
         }
 
         exploreRoutineTitle.textColor = .label
-//        exploreRoutineImage.contentMode = .scaleAspectFill
+//      exploreRoutineImage.contentMode = .scaleAspectFill
         exploreRoutineImage.clipsToBounds = true
-        cellBackgroundView.backgroundColor = .systemGray6
+        //cellBackgroundView.backgroundColor = .systemGray6
         cellBackgroundView.layer.cornerRadius = 20
     }
 

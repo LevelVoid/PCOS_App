@@ -73,4 +73,5 @@ enum ImpactTags: String, Codable, CaseIterable {
     // Digestive
     case gasForming
     case gutFriendly
+    case none
 }
